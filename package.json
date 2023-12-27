@@ -9,7 +9,7 @@
     "start:testnet": "pm2 start ecosystem.config.js --only liquidation-keeper-testnet",
     "dev": "name=liquidation-keeper-testnet ts-node-dev --respawn --transpile-only src/index.ts run",
     "dev:mainnet": "name=liquidation-keeper-mainnet ts-node-dev --respawn --transpile-only src/index.ts run",
-    "build": "tsc && touch .env && touch .env.staging && cp .env build/ && cp .env.staging build/",
+    "build": "tsc && touch .env && cp .env build/",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest",

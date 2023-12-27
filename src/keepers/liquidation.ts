@@ -105,7 +105,12 @@ export class StakingLiquidationKeeper extends Keeper {
         // Todo - Why is asset required for a signer ?
         async signer => {
           this.logger.info('Executing liquidating position ...', { args: { account } });
-          const tx = await this.horizon.connect(signer).liquidateDelinquentAccount(account);
+
+          // Create a public rpc signer as quicknode rpc behaves wierd 
+          const publicRpcProvider = new providers.JsonRpcProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
+          
+          const tx = await this.horizon.connect(signer.connect(publicRpcProvider)).liquidateDelinquentAccount(account);
+          // const tx = await this.horizon.connect(signer).liquidateDelinquentAccount(account);
 
           this.logger.info('Submitted transaction, waiting for completion...', {
             args: { account, nonce: tx.nonce },
